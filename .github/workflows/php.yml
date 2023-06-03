@@ -33,5 +33,5 @@ jobs:
 
     - name: Deploy to EC2
       run: |
-        scp -i ${{ secrets./root/.ssh/id_rsa }} -r ./ ubuntu@3.111.69.219:/var/www/html
-        ssh -i ${{ secrets./root/.ssh/id_rsa }} ubuntu@3.111.69.219 'cd /var/www/html && ./deploy.sh'
+        scp -i ${{ secrets.root/.ssh/id_rsa }} -r ./ ubuntu@3.111.69.219:/var/www/html
+        ssh -i ${{ secrets.root/.ssh/id_rsa }} ubuntu@3.111.69.219 'cd /var/www/html && ./deploy.sh'
