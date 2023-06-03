@@ -1,10 +1,8 @@
-<?php
-
-// Show all information, defaults to INFO_ALL
-phpinfo();
-
-// Show just the module information.
-// phpinfo(8) yields identical results.
-phpinfo(INFO_MODULES);
-
-?>
+<html>
+ <head>
+  <title>Index</title>
+ </head>
+ <body>
+ <?php echo '<p>aditya</p>'; ?> 
+ </body>
+</html>
