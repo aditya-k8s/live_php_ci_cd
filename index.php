@@ -3,6 +3,6 @@
   <title>Index</title>
  </head>
  <body>
- <?php echo '<p>aditya</p>'; ?> 
+ <?php echo '<p>its my second commit and i have remove everythin from first commit</p>'; ?> 
  </body>
 </html>
