@@ -18,24 +18,30 @@ jobs:
       with:
         php-version: '8.1'  # Replace with your desired PHP version
 
-    - name: Install dependencies
-      run: composer install
-
-    - name: Run tests
-      run: phpunit
-
-  deploy:
-    needs: build
-    runs-on: ubuntu 20.04
-
+deploy:
+    runs-on: ubuntu-latest
     steps:
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        host: ${{ secrets.SERVER_HOST }}
-        username: ${{ secrets.SERVER_USERNAME }}
-        password: ${{ secrets.SSH_PASSWORD }}
-
-    - name: Deploy to AWS EC2
-      source: '.' # Modify this if your PHP files are in a subdirectory
-      target: '/var/www/html'
+      - uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: build
+      - name: Create SSH key
+        run: |
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+      - name: Deploy with rsync
+        run: rsync -rav --delete build/ user@host:/deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: build
+      - name: Create SSH key
+        run: |
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+      - name: Deploy with rsync
+        run: rsync -rav --delete build/ user@host:/
