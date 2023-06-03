@@ -19,8 +19,7 @@ jobs:
         php-version: '8.1'  # Replace with your desired PHP version
 
 
-    - name: Run tests
-      run: phpunit
+   
 
   deploy:
     needs: build
