@@ -14,8 +14,8 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install rsync
-        run: sudo apt-get install -y rsync
+        run: sudo apt-get install -y rsync sshpass
 
       - name: Deploy code
         run: |
-          echo "${{ secrets.PASSWORD }}" | rsync -avz "ssh -o StrictHostKeyChecking=no" --delete-after --exclude '.git/' $GITHUB_WORKSPACE ubuntu@3.111.69.219:/var/www/html
+         echo "${{ secrets.PASSWORD }}" | sshpass -p "${{ secrets.PASSWORD }}" rsync -e 'ssh -o StrictHostKeyChecking=no' -avz --delete-after --exclude '.git/' $GITHUB_WORKSPACE ubuntu@3.111.69.219:/var/www/html
