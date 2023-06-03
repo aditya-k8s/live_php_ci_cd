@@ -18,4 +18,4 @@ jobs:
 
       - name: Deploy code
         run: |
-          echo "${{ secrets.PASSWORD }}" | rsync -avz --delete-after --exclude '.git/' $GITHUB_WORKSPACE ubuntu@3.111.69.219:/var/www/html
+          echo "${{ secrets.PASSWORD }}" | rsync -avz "ssh -o StrictHostKeyChecking=no" --delete-after --exclude '.git/' $GITHUB_WORKSPACE ubuntu@3.111.69.219:/var/www/html
