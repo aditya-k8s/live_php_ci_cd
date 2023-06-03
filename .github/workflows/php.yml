@@ -18,4 +18,4 @@ jobs:
 
       - name: Deploy code
         run: |
-         echo "${{ secrets.PASSWORD }}" | sshpass -p "${{ secrets.PASSWORD }}" rsync -e 'ssh -o StrictHostKeyChecking=no' -avz --delete-after --exclude '.git/' $GITHUB_WORKSPACE/* $SERVER_USERNAME@$SSH_HOST:$SERVER_PATH
+         sshpass -p "${{ secrets.PASSWORD }}" rsync -e 'ssh -o StrictHostKeyChecking=no' -avz --delete-after --exclude '.git/' $GITHUB_WORKSPACE/* "${{ secrets.SERVER_USERNAME }}"@"${{ secrets.SSH_HOST }}":"${{ secrets.SERVER_PATH }}"
